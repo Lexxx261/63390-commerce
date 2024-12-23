@@ -6,11 +6,6 @@ const categories = [
     { id: 2, name: 'Category 2', image: 'https://i.imgur.com/Nf9WdgN.png' },
     { id: 3, name: 'Category 3', image: 'https://i.imgur.com/Nf9WdgN.png' },
     { id: 4, name: 'Category 4', image: 'https://i.imgur.com/Nf9WdgN.png' },
-    { id: 5, name: 'Category 5', image: 'https://i.imgur.com/Nf9WdgN.png' },
-    { id: 6, name: 'Category 6', image: 'https://i.imgur.com/Nf9WdgN.png' },
-    { id: 7, name: 'Category 7', image: 'https://i.imgur.com/Nf9WdgN.png' },
-    { id: 8, name: 'Category 8', image: 'https://i.imgur.com/Nf9WdgN.png' }, 
-    // Agregar más categorías si es necesario
 ];
 
 const Navbar = () => {

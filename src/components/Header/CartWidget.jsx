@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { CartContext } from '../Cart/CartContext';
 
 const CartWidget = () => {
-  const [cartCount, setCartCount] = useState(0);
+  const { cartCount } = useContext(CartContext);
 
   return (
     <div className="relative cursor-pointer">

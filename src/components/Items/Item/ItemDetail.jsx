@@ -1,66 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { CartContext } from '../../Cart/CartContext';
 
 const ItemDetail = () => {
   const location = useLocation();
   const product = location.state?.product;
+  const { addToCart } = useContext(CartContext);
 
   const [quantity, setQuantity] = useState(1);
 
-  // Función para incrementar la cantidad
-  const increaseQuantity = () => setQuantity((prev) => prev + 1);
-
-  // Función para decrementar la cantidad (sin bajar de 1)
-  const decreaseQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
-
-  // Función para agregar al carrito (ejemplo)
   const handleAddToCart = () => {
-    console.log(`Producto agregado: ${product.name} - Cantidad: ${quantity}`);
-    // Aquí iría la lógica para agregar el producto a tu base de datos (Firebase)
+    addToCart(quantity);
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="item-detail flex flex-col items-center justify-center space-y-4">
+      <h1 className="text-2xl font-bold">Detalle de Producto</h1>
       {product ? (
-        <div className="max-w-2xl mx-auto border p-4 rounded-md">
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="w-full h-64 object-cover mb-4 rounded-md"
-          />
-          <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
-          <p className="text-gray-700 mb-4">{product.description}</p>
-          <p className="text-lg font-bold mb-4">${product.price}</p>
+        <div className="w-full max-w-md">
+          <img src={product.imageUrl} alt={product.name} className="w-full h-64 object-cover rounded-md" />
+          <h2 className="text-lg font-semibold mt-4">{product.name}</h2>
+          <p className="text-sm text-gray-800">{product.description}</p>
+          <p className="text-lg font-bold mt-2">${product.price}</p>
 
-          {/* Item Quantity Selector */}
-          <div className="flex items-center mb-4">
+          <div className="mt-4 flex items-center space-x-4">
             <button
-              onClick={decreaseQuantity}
-              className="bg-gray-300 text-gray-700 px-3 py-1 rounded-l"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="px-3 py-2 bg-gray-300 rounded"
             >
               -
             </button>
-            <span className="px-4 py-1 bg-white border-t border-b text-lg">
-              {quantity}
-            </span>
+            <span>{quantity}</span>
             <button
-              onClick={increaseQuantity}
-              className="bg-gray-300 text-gray-700 px-3 py-1 rounded-r"
+              onClick={() => setQuantity(quantity + 1)}
+              className="px-3 py-2 bg-gray-300 rounded"
             >
               +
             </button>
           </div>
 
-          {/* Botón de agregar al carrito */}
           <button
             onClick={handleAddToCart}
-            className="flex items-center bg-blue-500 text-primary px-4 py-2 rounded-md hover:bg-blue-600 transition"
+            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Agregar al carrito
           </button>
         </div>
       ) : (
-        <p className="text-center text-red-500">Producto no encontrado</p>
+        <p>Cargando Producto...</p>
       )}
     </div>
   );

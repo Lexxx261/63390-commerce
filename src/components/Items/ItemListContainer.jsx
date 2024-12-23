@@ -7,7 +7,7 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Catalog = () => {
   const [products, setProducts] = useState([]);
-  const categories = [1, 2, 3, 4, 5, 6, 7, 8];
+  const categories = [1, 2, 3, 4];
   const navigate = useNavigate();
 
   useEffect(() => {

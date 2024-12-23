@@ -13,7 +13,7 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <img src={logo} alt="Company Logo" className="h-16 w-16 object-contain mr-4" />
-          <h1 className="text-primary text-2xl">Nombre de la Empresa</h1>
+          <h1 className="text-primary text-2xl">Estudio Burger</h1>
         </div>
         <div className="flex items-center gap-4">
           <SearchEngine onSearch={handleSearch} />
