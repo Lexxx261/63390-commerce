@@ -1,20 +1,25 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { CartContext } from '../Cart/CartContext';
 
 const CartWidget = () => {
-  const { cartCount } = useContext(CartContext);
+  const { totalItems } = useContext(CartContext);
+  const navigate = useNavigate();
 
   return (
-    <div className="relative cursor-pointer">
+    <button
+      className="relative flex items-center"
+      onClick={() => navigate('/cart')}
+    >
       <FontAwesomeIcon icon={faShoppingCart} className="text-primary text-xl" />
-      {cartCount > 0 && (
-        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2">
-          {cartCount}
+      {totalItems > 0 && (
+        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+          {totalItems}
         </span>
       )}
-    </div>
+    </button>
   );
 };
 

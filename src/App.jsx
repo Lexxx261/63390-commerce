@@ -1,11 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Catalog from './components/Items/ItemListContainer';
 import ItemDetail from './components/Items/Item/ItemDetail';
 import { CartProvider } from './components/Cart/CartContext';
 import MainLayout from './components/Layouts/MainLayout';
 import SimpleLayout from './components/Layouts/SimpleLayout';
+import CartDetail from './components/Cart/CartDetail';
 
 const App = () => (
   <CartProvider>
@@ -23,6 +24,14 @@ const App = () => (
           element={
             <SimpleLayout>
               <ItemDetail />
+            </SimpleLayout>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <SimpleLayout>
+              <CartDetail />
             </SimpleLayout>
           }
         />

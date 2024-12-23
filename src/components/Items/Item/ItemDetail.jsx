@@ -10,7 +10,9 @@ const ItemDetail = () => {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
-    addToCart(quantity);
+    if (product) {
+      addToCart(product, quantity);
+    }
   };
 
   return (
