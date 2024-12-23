@@ -27,8 +27,38 @@ export const CartProvider = ({ children }) => {
     setTotalItems((prevTotal) => prevTotal + quantity);
   };
 
+  const updateQuantity = (id, amount) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: item.quantity + amount }
+            : item
+        )
+        .filter((item) => item.quantity > 0) // Elimina productos con cantidad 0
+    );
+
+    // Actualizar el contador de totalItems
+    setTotalItems((prevTotal) => prevTotal + amount);
+  };
+
+  const removeItem = (id) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+
+    // Reducir el contador totalItems según la cantidad del producto eliminado
+    const itemToRemove = cart.find((item) => item.id === id);
+    if (itemToRemove) {
+      setTotalItems((prevTotal) => prevTotal - itemToRemove.quantity);
+    }
+  };
+
+  const clearCart = () => {
+    setCart([]);
+    setTotalItems(0);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, totalItems }}>
+    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeItem, clearCart, totalItems }}>
       {children}
     </CartContext.Provider>
   );
