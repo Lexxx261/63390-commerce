@@ -1,7 +1,7 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{html,js,jsx,ts,tsx}",
   ],
 
   theme: {
@@ -14,6 +14,7 @@ export default {
     colors: {
       'primary': '#373741',
       'secondary': '#816A7C',
+      'seconacc':'#332931',
       'white': '#FFFFFF',
     },
 
@@ -36,6 +37,7 @@ export default {
   variants: {
     extend: {
       transform: ['responsive', 'hover', 'focus'],
+      backgroundColor: ['hover'],
     },
   },
   plugins: [],

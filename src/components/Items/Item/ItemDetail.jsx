@@ -17,7 +17,7 @@ const ItemDetail = () => {
 
   return (
     <div className="item-detail flex flex-col items-center justify-center space-y-4">
-      <h1 className="text-2xl font-bold">Detalle de Producto</h1>
+      <h1 className="text-2xl font-bold py-4">Detalle de Producto</h1>
       {product ? (
         <div className="w-full max-w-md">
           <img src={product.imageUrl} alt={product.name} className="w-full h-64 object-cover rounded-md" />
@@ -32,7 +32,7 @@ const ItemDetail = () => {
             >
               -
             </button>
-            <span>{quantity}</span>
+            <span className='px-3'>{quantity}</span>
             <button
               onClick={() => setQuantity(quantity + 1)}
               className="px-3 py-2 bg-gray-300 rounded"
@@ -43,7 +43,7 @@ const ItemDetail = () => {
 
           <button
             onClick={handleAddToCart}
-            className="mt-4 bg-blue-500 hover:bg-blue-700 text-primary font-bold py-2 px-4 rounded"
+            className="mt-4 bg-secondary hover:bg-seconacc text-white font-bold py-2 px-4 rounded w-full"
           >
             Agregar al carrito
           </button>

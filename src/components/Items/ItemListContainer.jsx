@@ -62,13 +62,13 @@ const Catalog = ({ categories = [] }) => {
                       />
                       <h3 className="text-lg font-semibold">{product.name}</h3>
                       <p className="text-sm text-gray-800">{product.description}</p>
-                      <div className="flex">
+                      <div className="flex items-center justify-between">
                         <p className="text-lg font-bold mt-2">${product.price}</p>
                         <button
                           onClick={() => handleAddToCart(product)}
-                          className="mt-4 bg-blue-500 hover:bg-blue-700 text-primary font-bold py-2 px-4 rounded flex items-center"
+                          className=""
                         >
-                          <FontAwesomeIcon icon={faCartPlus} className="mr-2" />
+                          <FontAwesomeIcon icon={faCartPlus} className="mr-2 size-7 hover:text-secondary" />
                         </button>
                       </div>
                     </div>

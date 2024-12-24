@@ -13,9 +13,9 @@ const CartWidget = () => {
       className="relative flex items-center"
       onClick={() => navigate('/cart')}
     >
-      <FontAwesomeIcon icon={faShoppingCart} className="text-primary text-xl" />
+      <FontAwesomeIcon icon={faShoppingCart} className="text-primary size-8 hover:text-seconacc" />
       {totalItems > 0 && (
-        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+        <span className="absolute bottom-5 left-4 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
           {totalItems}
         </span>
       )}

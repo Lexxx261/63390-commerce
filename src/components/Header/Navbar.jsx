@@ -40,7 +40,7 @@ const Navbar = () => {
                             key={category.id}
                             to={`category-${category.id}`}
                             smooth={true}
-                            className="text-center cursor-pointer hover:text-gray-400"
+                            className="text-center cursor-pointer hover:font-bold"
                         >
                             <div className="category-item flex-shrink-0">
                                 <img
