@@ -32,7 +32,7 @@ const ItemDetail = () => {
             >
               -
             </button>
-            <span className='px-3'>{quantity}</span>
+            <span className='mx-2 w-4 h-4 flex items-center justify-center'>{quantity}</span>
             <button
               onClick={() => setQuantity(quantity + 1)}
               className="px-3 py-2 bg-gray-300 rounded"

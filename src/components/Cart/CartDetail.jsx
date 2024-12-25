@@ -1,39 +1,46 @@
-import React, { useContext } from 'react';
-import { CartContext } from './CartContext';
+import React, { useContext } from "react";
+import { CartContext } from "./CartContext";
 
 const CartDetail = () => {
-  const { cart, updateQuantity, removeItem, clearCart, totalItems } = useContext(CartContext);
+  const { cart, updateQuantity, removeItem, clearCart, totalItems } =
+    useContext(CartContext);
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   // Función que maneja el proceso de finalizar compra
   const handleFinalizePurchase = () => {
-    // Aquí puedes agregar la lógica para procesar la compra, como una llamada a la API
-    // Una vez completada la compra, vaciar el carrito
-    clearCart();  // Vaciar el carrito
-    alert('Compra finalizada. Gracias por tu compra!');  // Mostrar mensaje de confirmación
+    clearCart();
+    alert("Compra finalizada. Gracias por tu compra!");
   };
 
   return (
-    <div className="cart-detail p-4">
+    <div className="cart-detail p-4 flex flex-col items-center justify-center h-full">
       <h1 className="text-2xl font-bold">Resumen del Carrito</h1>
       {cart.length > 0 ? (
-        <div>
+        <div className="w-3/4 mx-auto space-x-4">
           <ul className="mt-4 space-y-2">
             {cart.map((item) => (
-              <li key={item.id} className="flex justify-between items-center border p-2">
+              <li
+                key={item.id}
+                className="flex justify-between items-center border p-2"
+              >
                 <div className="flex items-center">
                   <span className="mr-4">{item.name}</span>
-                  <div className="ml-4 flex items-center">
-                    <button 
-                      className="px-2 py-1 bg-gray-300 rounded"
+                  <div className="flex items-center">
+                    <button
+                      className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center"
                       onClick={() => updateQuantity(item.id, -1)}
                     >
                       -
                     </button>
-                    <span className="mx-2">{item.quantity}</span>
-                    <button 
-                      className="px-2 py-1 bg-gray-300 rounded"
+                    <span className="mx-2 w-4 h-4 flex items-center justify-center">
+                      {item.quantity}
+                    </span>
+                    <button
+                      className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center"
                       onClick={() => updateQuantity(item.id, 1)}
                     >
                       +
@@ -42,7 +49,7 @@ const CartDetail = () => {
                 </div>
                 <div>
                   <span>${item.price * item.quantity}</span>
-                  <button 
+                  <button
                     className="ml-4 text-red-500 hover:text-red-700"
                     onClick={() => removeItem(item.id)}
                   >
@@ -52,20 +59,21 @@ const CartDetail = () => {
               </li>
             ))}
           </ul>
-          <p className="mt-4 font-bold">Total: ${totalPrice}</p>
-          <p className="mt-2 font-semibold">Total Items: {totalItems}</p>
-          <div className="mt-4">
-            <button 
-              className="bg-green-500 text-primary py-2 px-4 rounded mr-2"
-              onClick={handleFinalizePurchase}  // Llamamos a la función al hacer clic
-            >
-              Finalizar Compra
-            </button>
-            <button 
-              className="bg-red-500 text-primary py-2 px-4 rounded"
+          <div className="flex justify-end">
+            <p className="mt-4 font-bold">Total: ${totalPrice}</p>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <button
+              className="bg-red-500 text-white py-2 px-4 rounded mr-2"
               onClick={clearCart}
             >
               Vaciar Carrito
+            </button>
+            <button
+              className="bg-green-500 text-white py-2 px-4 rounded"
+              onClick={handleFinalizePurchase}
+            >
+              Finalizar Compra
             </button>
           </div>
         </div>

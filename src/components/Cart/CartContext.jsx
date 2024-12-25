@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
             ? { ...item, quantity: item.quantity + amount }
             : item
         )
-        .filter((item) => item.quantity > 0) // Elimina productos con cantidad 0
+        .filter((item) => item.quantity > 0) 
     );
 
     // Actualizar el contador de totalItems
