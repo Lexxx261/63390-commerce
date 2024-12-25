@@ -8,15 +8,31 @@ const ItemDetail = () => {
   const { addToCart } = useContext(CartContext);
 
   const [quantity, setQuantity] = useState(1);
+  const [notification, setNotification] = useState(null); // Estado para la notificación
 
   const handleAddToCart = () => {
     if (product) {
       addToCart(product, quantity);
+
+      // Mostrar la notificación
+      setNotification(`"${product.name}" se ha agregado al carrito!`);
+
+      // Desaparecer la notificación después de 2 segundos
+      setTimeout(() => {
+        setNotification(null);
+      }, 2000);
     }
   };
 
   return (
     <div className="item-detail flex flex-col items-center justify-center space-y-4">
+      {/* Notificación en la parte superior */}
+      {notification && (
+        <div className="fixed top-0 left-0 right-0 bg-green-500 text-white text-center py-2 z-50">
+          {notification}
+        </div>
+      )}
+
       <h1 className="text-2xl font-bold py-4">Detalle de Producto</h1>
       {product ? (
         <div className="w-full max-w-md">
