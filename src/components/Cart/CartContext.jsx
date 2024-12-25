@@ -53,11 +53,9 @@ export const CartProvider = ({ children }) => {
     const itemToRemove = cart.find((item) => item.id === id);
   
     if (itemToRemove) {
-      // Elimina el producto del carrito
       setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-      // Actualiza el total de artículos
       setTotalItems((prevTotal) => prevTotal - itemToRemove.quantity);
-      closeModal(); // Cierra el modal después de la acción
+      closeModal();
     }
   };
   
@@ -65,7 +63,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => {
     setCart([]);
     setTotalItems(0);
-    closeModal(); // Asegurarse de que el modal se cierra después de vaciar el carrito
+    closeModal();
   };
   
 
@@ -92,7 +90,7 @@ export const CartProvider = ({ children }) => {
         finalizePurchase,
         totalItems,
         modal,
-        setModal,  // Asegúrate de pasar setModal aquí
+        setModal,
         closeModal,
       }}
     >

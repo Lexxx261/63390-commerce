@@ -37,7 +37,6 @@ const App = () => (
         }
       />
     </Routes>
-    {/* Coloca el Modal aquí dentro de CartProvider */}
     <Modal />
   </CartProvider>
 );

@@ -10,9 +10,8 @@ const categories = [
 ];
 
 const Navbar = () => {
-    const [isSticky, setIsSticky] = useState(false);
+    const [isSticky, setIsSticky] = useState(false); //arreglar sticky
 
-    // Efecto que escucha el scroll
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 100) {

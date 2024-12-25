@@ -31,7 +31,6 @@ const SearchEngine = () => {
     fetchProducts();
   }, []);
 
-  // Filtrar productos según el texto ingresado
   const handleSearch = (searchTerm) => {
     setQueryText(searchTerm);
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -50,8 +49,8 @@ const SearchEngine = () => {
 
   const toggleSearchBar = () => {
     setIsVisible(!isVisible);
-    setFilteredProducts([]); // Limpiar resultados al cerrar el buscador
-    setQueryText('');       // Limpiar el texto del input
+    setFilteredProducts([]);
+    setQueryText('');
   };
 
   return (

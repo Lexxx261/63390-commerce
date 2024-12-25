@@ -5,7 +5,7 @@ const Modal = ({ isOpen, title, message, onConfirm, onClose }) => {
   
     const handleConfirm = () => {
       if (onConfirm) {
-        onConfirm(); // Llamar a la función de confirmación
+        onConfirm();
       }
     };
   

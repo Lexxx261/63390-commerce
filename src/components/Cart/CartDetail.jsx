@@ -11,7 +11,7 @@ const CartDetail = () => {
     totalItems, 
     modal, 
     closeModal, 
-    setModal // Aquí estamos desestructurando setModal
+    setModal // desctructure
   } = useContext(CartContext);
 
   const totalPrice = cart.reduce(
@@ -25,8 +25,8 @@ const CartDetail = () => {
       title,
       message,
       onConfirm: () => {
-        onConfirm(); // Ejecutar la función de confirmación
-        closeModal(); // Luego, cerrar el modal
+        onConfirm();
+        closeModal();
       },
     });
   };
@@ -37,7 +37,7 @@ const CartDetail = () => {
     showModal(
       "Vaciar Carrito",
       "¿Está seguro de que desea vaciar el carrito?",
-      clearCart // clearCart es la función que se pasará
+      clearCart
     );
   };
   
@@ -45,7 +45,7 @@ const CartDetail = () => {
     showModal(
       "Eliminar Producto",
       `¿Está seguro de eliminar ${name} del carrito?`,
-      () => removeItem(id) // Pasando la función removeItem al modal
+      () => removeItem(id)
     );
   };
   
@@ -53,7 +53,7 @@ const CartDetail = () => {
     showModal(
       "Gracias por tu compra",
       `Ha adquirido un total de ${totalItems} artículos por un monto de $${totalPrice}.`,
-      clearCart // Pasamos clearCart para vaciar el carrito después de la compra
+      clearCart
     );
   };
   
