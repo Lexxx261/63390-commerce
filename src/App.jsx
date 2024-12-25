@@ -7,35 +7,38 @@ import { CartProvider } from './components/Cart/CartContext';
 import MainLayout from './components/Layouts/MainLayout';
 import SimpleLayout from './components/Layouts/SimpleLayout';
 import CartDetail from './components/Cart/CartDetail';
+import Modal from './components/Modal'
 
 const App = () => (
   <CartProvider>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainLayout>
-              <Catalog />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/item/:id"
-          element={
-            <SimpleLayout>
-              <ItemDetail />
-            </SimpleLayout>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <SimpleLayout>
-              <CartDetail />
-            </SimpleLayout>
-          }
-        />
-      </Routes>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <Catalog />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/item/:id"
+        element={
+          <SimpleLayout>
+            <ItemDetail />
+          </SimpleLayout>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <SimpleLayout>
+            <CartDetail />
+          </SimpleLayout>
+        }
+      />
+    </Routes>
+    {/* Coloca el Modal aquí dentro de CartProvider */}
+    <Modal />
   </CartProvider>
 );
 

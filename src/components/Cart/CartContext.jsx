@@ -1,29 +1,38 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [totalItems, setTotalItems] = useState(0); // Contador para el widget
+  const [totalItems, setTotalItems] = useState(0);
+  const [modal, setModal] = useState({
+    isOpen: false,
+    title: "",
+    message: "",
+    onConfirm: null,
+  });
+
+  const openModal = (title, message, onConfirm) => {
+    setModal({ isOpen: true, title, message, onConfirm });
+  };
+
+  const closeModal = () => {
+    setModal({ isOpen: false, title: "", message: "", onConfirm: null });
+  };
 
   const addToCart = (product, quantity) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
-
       if (existingProduct) {
-        // Actualizamos la cantidad si ya existe
         return prevCart.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       } else {
-        // Agregamos el producto si no existe
         return [...prevCart, { ...product, quantity }];
       }
     });
-
-    // Actualizamos el contador total
     setTotalItems((prevTotal) => prevTotal + quantity);
   };
 
@@ -35,30 +44,58 @@ export const CartProvider = ({ children }) => {
             ? { ...item, quantity: item.quantity + amount }
             : item
         )
-        .filter((item) => item.quantity > 0) 
+        .filter((item) => item.quantity > 0)
     );
-
-    // Actualizar el contador de totalItems
     setTotalItems((prevTotal) => prevTotal + amount);
   };
 
   const removeItem = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-
-    // Reducir el contador totalItems según la cantidad del producto eliminado
     const itemToRemove = cart.find((item) => item.id === id);
+  
     if (itemToRemove) {
+      // Elimina el producto del carrito
+      setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+      // Actualiza el total de artículos
       setTotalItems((prevTotal) => prevTotal - itemToRemove.quantity);
+      closeModal(); // Cierra el modal después de la acción
     }
   };
+  
 
   const clearCart = () => {
     setCart([]);
     setTotalItems(0);
+    closeModal(); // Asegurarse de que el modal se cierra después de vaciar el carrito
+  };
+  
+
+  const finalizePurchase = () => {
+    openModal(
+      "Gracias por su compra",
+      `Ha adquirido un total de ${totalItems} artículos.`,
+      () => {
+        setCart([]);
+        setTotalItems(0);
+        closeModal();
+      }
+    );
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeItem, clearCart, totalItems }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        updateQuantity,
+        removeItem,
+        clearCart,
+        finalizePurchase,
+        totalItems,
+        modal,
+        setModal,  // Asegúrate de pasar setModal aquí
+        closeModal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

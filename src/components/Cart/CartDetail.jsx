@@ -1,20 +1,62 @@
 import React, { useContext } from "react";
 import { CartContext } from "./CartContext";
+import Modal from "../Modal";
 
 const CartDetail = () => {
-  const { cart, updateQuantity, removeItem, clearCart, totalItems } =
-    useContext(CartContext);
+  const { 
+    cart, 
+    updateQuantity, 
+    removeItem, 
+    clearCart, 
+    totalItems, 
+    modal, 
+    closeModal, 
+    setModal // Aquí estamos desestructurando setModal
+  } = useContext(CartContext);
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  // Función que maneja el proceso de finalizar compra
-  const handleFinalizePurchase = () => {
-    clearCart();
-    alert("Compra finalizada. Gracias por tu compra!");
+  const showModal = (title, message, onConfirm) => {
+    setModal({
+      isOpen: true,
+      title,
+      message,
+      onConfirm: () => {
+        onConfirm(); // Ejecutar la función de confirmación
+        closeModal(); // Luego, cerrar el modal
+      },
+    });
   };
+  
+  
+
+  const handleClearCart = () => {
+    showModal(
+      "Vaciar Carrito",
+      "¿Está seguro de que desea vaciar el carrito?",
+      clearCart // clearCart es la función que se pasará
+    );
+  };
+  
+  const handleRemoveItem = (id, name) => {
+    showModal(
+      "Eliminar Producto",
+      `¿Está seguro de eliminar ${name} del carrito?`,
+      () => removeItem(id) // Pasando la función removeItem al modal
+    );
+  };
+  
+  const handleFinalizePurchase = () => {
+    showModal(
+      "Gracias por tu compra",
+      `Ha adquirido un total de ${totalItems} artículos por un monto de $${totalPrice}.`,
+      clearCart // Pasamos clearCart para vaciar el carrito después de la compra
+    );
+  };
+  
 
   return (
     <div className="cart-detail p-4 flex flex-col items-center justify-center h-full">
@@ -51,7 +93,7 @@ const CartDetail = () => {
                   <span>${item.price * item.quantity}</span>
                   <button
                     className="ml-4 text-red-500 hover:text-red-700"
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => handleRemoveItem(item.id, item.name)}
                   >
                     Eliminar
                   </button>
@@ -65,7 +107,7 @@ const CartDetail = () => {
           <div className="mt-4 flex justify-end">
             <button
               className="bg-red-500 text-white py-2 px-4 rounded mr-2"
-              onClick={clearCart}
+              onClick={handleClearCart}
             >
               Vaciar Carrito
             </button>
@@ -80,6 +122,15 @@ const CartDetail = () => {
       ) : (
         <p>El carrito está vacío.</p>
       )}
+
+      {/* Modal */}
+      <Modal
+        isOpen={modal.isOpen}
+        title={modal.title}
+        message={modal.message}
+        onConfirm={modal.onConfirm}
+        onClose={closeModal}
+      />
     </div>
   );
 };
