@@ -3,10 +3,10 @@ import { Link } from 'react-scroll';
 import Catalog from '../Items/ItemListContainer';
 
 const categories = [
-    { id: 1, name: 'Carne', image: 'https://i.imgur.com/Nf9WdgN.png' },
-    { id: 2, name: 'Pollo', image: 'https://i.imgur.com/Nf9WdgN.png' },
-    { id: 3, name: 'Cerdo', image: 'https://i.imgur.com/Nf9WdgN.png' },
-    { id: 4, name: 'Cordero', image: 'https://i.imgur.com/Nf9WdgN.png' },
+    { id: 1, name: 'Carne', image: 'https://i.imgur.com/cQzOtNE.png' },
+    { id: 2, name: 'Pollo', image: 'https://i.imgur.com/MMpy8qf.png' },
+    { id: 3, name: 'Cerdo', image: 'https://i.imgur.com/xICoplO.png' },
+    { id: 4, name: 'Cordero', image: 'https://i.imgur.com/jlQGgQN.png' },
 ];
 
 const Navbar = () => {
@@ -46,7 +46,7 @@ const Navbar = () => {
                                 <img
                                     src={category.image}
                                     alt={category.name}
-                                    className="w-16 h-16 object-cover rounded-full"
+                                    className="w-16 h-16 object-cover"
                                 />
                                 <span className="block mt-2">{category.name}</span>
                             </div>
