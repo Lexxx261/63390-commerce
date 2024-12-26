@@ -8,16 +8,14 @@ const ItemDetail = () => {
   const { addToCart } = useContext(CartContext);
 
   const [quantity, setQuantity] = useState(1);
-  const [notification, setNotification] = useState(null); // Estado para la notificación
+  const [notification, setNotification] = useState(null);
 
   const handleAddToCart = () => {
     if (product) {
       addToCart(product, quantity);
 
-      // Mostrar la notificación
       setNotification(`"${product.name}" se ha agregado al carrito!`);
 
-      // Desaparecer la notificación después de 2 segundos
       setTimeout(() => {
         setNotification(null);
       }, 2000);
@@ -41,17 +39,17 @@ const ItemDetail = () => {
           <p className="text-sm text-gray-800">{product.description}</p>
           <p className="text-lg font-bold mt-2">${product.price}</p>
 
-          <div className="mt-4 flex items-center space-x-4">
+          <div className="mt-4 flex items-center">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="px-3 py-2 bg-gray-300 rounded"
+              className="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400"
             >
               -
             </button>
             <span className='mx-2 w-4 h-4 flex items-center justify-center'>{quantity}</span>
             <button
               onClick={() => setQuantity(quantity + 1)}
-              className="px-3 py-2 bg-gray-300 rounded"
+              className="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400"
             >
               +
             </button>

@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { CartContext } from "./CartContext";
 import Modal from "../Modal";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const CartDetail = () => {
   const { 
@@ -73,7 +75,7 @@ const CartDetail = () => {
                   <span className="mr-4">{item.name}</span>
                   <div className="flex items-center">
                     <button
-                      className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center"
+                      className="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400"
                       onClick={() => updateQuantity(item.id, -1)}
                     >
                       -
@@ -82,7 +84,7 @@ const CartDetail = () => {
                       {item.quantity}
                     </span>
                     <button
-                      className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center"
+                      className="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400"
                       onClick={() => updateQuantity(item.id, 1)}
                     >
                       +
@@ -92,10 +94,9 @@ const CartDetail = () => {
                 <div>
                   <span>${item.price * item.quantity}</span>
                   <button
-                    className="ml-4 text-red-500 hover:text-red-700"
                     onClick={() => handleRemoveItem(item.id, item.name)}
                   >
-                    Eliminar
+                    <FontAwesomeIcon icon={faTrash} className="text-primary size-4 ml-2 hover:text-red-500" />
                   </button>
                 </div>
               </li>
@@ -106,13 +107,13 @@ const CartDetail = () => {
           </div>
           <div className="mt-4 flex justify-end">
             <button
-              className="bg-red-500 text-white py-2 px-4 rounded mr-2"
+              className="bg-red-500 text-white py-2 px-4 rounded mr-2 hover:bg-red-600"
               onClick={handleClearCart}
             >
               Vaciar Carrito
             </button>
             <button
-              className="bg-green-500 text-white py-2 px-4 rounded"
+              className="bg-green-900 text-white py-2 px-4 rounded hover:bg-green-700"
               onClick={handleFinalizePurchase}
             >
               Finalizar Compra
