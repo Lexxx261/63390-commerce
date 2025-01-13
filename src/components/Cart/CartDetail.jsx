@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import Modal from "../Modal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { handleFinalizePurchase } from "./Checkout";
 
 const CartDetail = () => {
   const { 
@@ -13,8 +14,14 @@ const CartDetail = () => {
     totalItems, 
     modal, 
     closeModal, 
-    setModal // desctructure
+    setModal 
   } = useContext(CartContext);
+
+  // Cargar el número de pedido desde localStorage al iniciar
+  const [orderNumber, setOrderNumber] = useState(() => {
+    const savedOrderNumber = localStorage.getItem("orderNumber");
+    return savedOrderNumber ? parseInt(savedOrderNumber, 10) : 1;
+  });
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -32,8 +39,6 @@ const CartDetail = () => {
       },
     });
   };
-  
-  
 
   const handleClearCart = () => {
     showModal(
@@ -42,7 +47,7 @@ const CartDetail = () => {
       clearCart
     );
   };
-  
+
   const handleRemoveItem = (id, name) => {
     showModal(
       "Eliminar Producto",
@@ -50,15 +55,11 @@ const CartDetail = () => {
       () => removeItem(id)
     );
   };
-  
-  const handleFinalizePurchase = () => {
-    showModal(
-      "Gracias por tu compra",
-      `Ha adquirido un total de ${totalItems} artículos por un monto de $${totalPrice}.`,
-      clearCart
-    );
-  };
-  
+
+  // Actualizar `localStorage` cada vez que cambia `orderNumber`
+  useEffect(() => {
+    localStorage.setItem("orderNumber", orderNumber);
+  }, [orderNumber]);
 
   return (
     <div className="cart-detail p-4 flex flex-col items-center justify-center h-full">
@@ -114,7 +115,16 @@ const CartDetail = () => {
             </button>
             <button
               className="bg-green-900 text-white py-2 px-4 rounded hover:bg-green-700"
-              onClick={handleFinalizePurchase}
+              onClick={() =>
+                handleFinalizePurchase(
+                  cart,
+                  totalPrice,
+                  orderNumber,
+                  clearCart,
+                  showModal,
+                  setOrderNumber
+                )
+              }
             >
               Finalizar Compra
             </button>

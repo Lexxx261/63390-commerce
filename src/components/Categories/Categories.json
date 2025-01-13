@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Carne",
+        "image": "https://i.imgur.com/cQzOtNE.png"
+    },
+    {
+        "id": 2,
+        "name": "Pollo",
+        "image": "https://i.imgur.com/MMpy8qf.png"
+    },
+    {
+        "id": 3,
+        "name": "Cerdo",
+        "image": "https://i.imgur.com/xICoplO.png"
+    },
+    {
+        "id": 4,
+        "name": "Cordero",
+        "image": "https://i.imgur.com/jlQGgQN.png"
+    }
+]
