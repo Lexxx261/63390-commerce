@@ -1,23 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import Modal from "../Modal";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import ItemQuantitySelector from "../Items/Resources/ItemQuantitySelector";
 import { handleFinalizePurchase } from "./Checkout";
 
 const CartDetail = () => {
-  const { 
-    cart, 
-    updateQuantity, 
-    removeItem, 
-    clearCart, 
-    totalItems, 
-    modal, 
-    closeModal, 
-    setModal 
+  const {
+    cart,
+    updateQuantity,
+    removeItem,
+    clearCart,
+    totalItems,
+    modal,
+    closeModal,
+    setModal,
   } = useContext(CartContext);
 
-  // Cargar el número de pedido desde localStorage al iniciar
   const [orderNumber, setOrderNumber] = useState(() => {
     const savedOrderNumber = localStorage.getItem("orderNumber");
     return savedOrderNumber ? parseInt(savedOrderNumber, 10) : 1;
@@ -56,7 +56,6 @@ const CartDetail = () => {
     );
   };
 
-  // Actualizar `localStorage` cada vez que cambia `orderNumber`
   useEffect(() => {
     localStorage.setItem("orderNumber", orderNumber);
   }, [orderNumber]);
@@ -74,30 +73,19 @@ const CartDetail = () => {
               >
                 <div className="flex items-center">
                   <span className="mr-4">{item.name}</span>
-                  <div className="flex items-center">
-                    <button
-                      className="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                      onClick={() => updateQuantity(item.id, -1)}
-                    >
-                      -
-                    </button>
-                    <span className="mx-2 w-4 h-4 flex items-center justify-center">
-                      {item.quantity}
-                    </span>
-                    <button
-                      className="px-3 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                      onClick={() => updateQuantity(item.id, 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                  <ItemQuantitySelector
+                    quantity={item.quantity}
+                    onIncrement={() => updateQuantity(item.id, 1)}
+                    onDecrement={() => updateQuantity(item.id, -1)}
+                  />
                 </div>
                 <div>
                   <span>${item.price * item.quantity}</span>
-                  <button
-                    onClick={() => handleRemoveItem(item.id, item.name)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} className="text-primary size-4 ml-2 hover:text-red-500" />
+                  <button onClick={() => handleRemoveItem(item.id, item.name)}>
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      className="text-primary size-4 ml-2 hover:text-red-500"
+                    />
                   </button>
                 </div>
               </li>
@@ -134,7 +122,6 @@ const CartDetail = () => {
         <p>El carrito está vacío.</p>
       )}
 
-      {/* Modal */}
       <Modal
         isOpen={modal.isOpen}
         title={modal.title}
