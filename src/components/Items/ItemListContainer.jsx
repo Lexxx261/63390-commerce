@@ -36,7 +36,7 @@ const Catalog = ({ categories = [] }) => {
   }
 
   return (
-    <div className="catalog mt-8">
+    <div className="catalog">
       {isLoading ? (
         <div className="flex justify-center items-center h-screen">
           <div className="spinner"></div>
@@ -48,8 +48,8 @@ const Catalog = ({ categories = [] }) => {
           const categoryProducts = products.filter((product) => product.category === category.id);
 
           return (
-            <div key={category.id} id={`category-${category.id}`} className="category-section py-8">
-              <h2 className="text-2xl font-bold text-center mb-4">{category.name}</h2>
+            <div key={category.id} id={`category-${category.id}`} className="category-section">
+              <h2 className="text-2xl font-bold text-center mb-4 mt-4">{category.name}</h2>
 
               <div className="flex justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-screen-lg">

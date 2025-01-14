@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { CartContext } from "../../Cart/CartContext";
 import ItemQuantitySelector from "../Resources/ItemQuantitySelector";
@@ -11,6 +11,16 @@ const ItemDetail = () => {
 
   const [quantity, setQuantity] = useState(1);
   const [notification, setNotification] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simula un retraso en la carga de datos
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // Puedes ajustar el tiempo de carga si es necesario
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleIncrement = () => setQuantity(quantity + 1);
   const handleDecrement = () => setQuantity(Math.max(1, quantity - 1));
@@ -21,7 +31,7 @@ const ItemDetail = () => {
       setNotification(`"${product.name}" se ha agregado al carrito!`);
       setTimeout(() => {
         setNotification(null);
-      }, 2000);
+      }, 1000);
     }
   };
 
@@ -34,8 +44,12 @@ const ItemDetail = () => {
       )}
 
       <h1 className="text-2xl font-bold py-4">Detalle de Producto</h1>
-      {product ? (
-        <div className="w-full max-w-md">
+      {isLoading ? (
+        <div className="flex justify-center items-center h-screen">
+          <div className="spinner"></div>
+        </div>
+      ) : product ? (
+        <div className="w-full max-w-md p-2">
           <img
             src={product.imageUrl}
             alt={product.name}
@@ -45,26 +59,26 @@ const ItemDetail = () => {
           <p className="text-sm text-gray-800">{product.description}</p>
           <p className="text-lg font-bold mt-2">${product.price}</p>
 
-          {/* ItemQuantitySelector */}
-          <div className="mt-4">
-            <ItemQuantitySelector
-              quantity={quantity}
-              onIncrement={handleIncrement}
-              onDecrement={handleDecrement}
-            />
-          </div>
+          <div className="flex justify-between">
+            <div className="mt-4">
+              <ItemQuantitySelector
+                quantity={quantity}
+                onIncrement={handleIncrement}
+                onDecrement={handleDecrement}
+              />
+            </div>
 
-          {/* AddItemButton */}
-          <div className="mt-4">
-            <AddItemButton
-              product={product}
-              quantity={quantity}
-              addToCart={handleAddToCartWithNotification}
-            />
+            <div className="mt-4">
+              <AddItemButton
+                product={product}
+                quantity={quantity}
+                addToCart={handleAddToCartWithNotification}
+              />
+            </div>
           </div>
         </div>
       ) : (
-        <p>Cargando Producto...</p>
+        <p>Producto no encontrado.</p>
       )}
     </div>
   );
